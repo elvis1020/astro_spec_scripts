@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 ##########################################################
 # Multiplot: a simple, interactive tool for spectroscopy #
 # Written by E. Cantelli, 2015                           #
