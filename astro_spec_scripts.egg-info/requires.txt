@@ -1,7 +1,0 @@
-numpy
-scipy
-astropy
-matplotlib
-PyAstronomy
-pyraf
-lmfit
