@@ -1,0 +1,5 @@
+element  lambda    range atomic data
+Ca       5601.277  2.0   atoms.dat
+name      teff   logg  met    vt    fwhm  observed      lam.corr  flx.corr  mark
+sun       5777.  4.44  +0.00  1.0   0.14  solar580.dat  +0.00     0.995     F
+arcturus  4282.  1.66  -0.54  1.65  0.16  obsarc.dat    +0.11     2.30      T

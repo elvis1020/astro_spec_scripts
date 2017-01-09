@@ -1,0 +1,9 @@
+setup.py
+astro_spec_scripts.egg-info/PKG-INFO
+astro_spec_scripts.egg-info/SOURCES.txt
+astro_spec_scripts.egg-info/dependency_links.txt
+astro_spec_scripts.egg-info/requires.txt
+astro_spec_scripts.egg-info/top_level.txt
+plotting/lineplot.py
+plotting/multiplot.py
+plotting/reg_analysis.py
