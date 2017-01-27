@@ -230,6 +230,7 @@ def synth_plot_build(ax, name=None, st_dt=None):
     m = pf.Innewmarcs()
     m.conf.flag_log_console = False
     m.conf.file_main = mainfile
+    m.conf.opt.allow = True
     m.conf.opt.absoru = True
     m.conf.opt.opa = False
     m.run()
@@ -277,7 +278,7 @@ def synth_plot_build(ax, name=None, st_dt=None):
         if multiflag:
             global ospec
             ospec = np.genfromtxt(st_dt['spec'], unpack=True)
-            ax.plot(ospec[0]+st_dt['sp_adj'][0], ospec[1]/st_dt['sp_adj'][1], 'k--')
+            obsplot = ax.plot(ospec[0]+st_dt['sp_adj'][0], ospec[1]/st_dt['sp_adj'][1], 'k--')
         elif rflag:
             ax.plot(ospec[0]+rel[0], ospec[1]/rel[1], 'k--')
         else:
@@ -286,12 +287,13 @@ def synth_plot_build(ax, name=None, st_dt=None):
         ax.plot(l[0], l[1], color='#FF8C00', ls='-.', lw=1.5)
     if element != 'Fe':
         for l in el_specval:
-            ax.plot(l[0], l[1], 'm-.', lw=1.5)
+            ax.plot(l[0], l[1], 'm-', lw=1.5)
     if multiflag:
     	plt.text(0.04, 0.06, name, horizontalalignment='left', 
     	     	verticalalignment='bottom', fontsize=16,
     	     	transform=plt.gca().transAxes)
     plt.ylim((0., 1.05))
+    return [obsplot, ospec]
 
 
 ################################################################################
@@ -393,7 +395,7 @@ lineprops = []
 for n, i in enumerate(trim):
     if (len(i) <= 4):
         el = i[0][:-1]
-        if el == pf.adjust_atomic_symbol(element):
+        if el == pf.adjust_atomic_symbol(element).strip():
             lineprops.append([i[0], i[1], trim[n + 1][0], trim[n + 1][1]])
 
 ################plotting
@@ -402,13 +404,14 @@ fig = plt.figure()
 if multiflag:
     stars = star_data.keys()
     subcode = len(stars)*100
+    obsplots = {}
     for n, s in enumerate(stars):
         print('working on '+s)
         if n == 0:
             star_data[s]['subpt'] = fig.add_subplot(subcode+n+11)
         else:
             star_data[s]['subpt'] = fig.add_subplot(subcode+n+11, sharex=star_data[stars[0]]['subpt'])
-        synth_plot_build(star_data[s]['subpt'], name=s, st_dt=star_data[s])
+        obsplots[s] = [synth_plot_build(star_data[s]['subpt'], name=s, st_dt=star_data[s]), star_data[s]['subpt']]
         plt.xlim((mainfile.llzero+2, mainfile.llfin-2))
         if star_data[s]['mark']:
             drawmarks(star_data[s]['subpt'], lineprops)
@@ -426,6 +429,26 @@ else:
 mng = plt.get_current_fig_manager()
 mng.window.showMaximized()
 plt.tight_layout()
+if multiflag:
+    plt.ion()
 plt.show()
+if multiflag:
+	command = 'r'
+	while command != 'q':
+		command = raw_input("enter to re-plot, q to quit\n")
+		if command != 'q':
+			with open(parfile) as pfl:
+				pardata = pfl.readlines()
+			for cols in [raw.strip().split() for raw in pardata[3:]]:
+				if len(cols) > 3:
+					st_name = cols[0]
+					obsplots[st_name].append([float(cols[7]), float(cols[8])])
+			for s in stars:
+				obsplots[s][0][0][-1].remove()
+				obsline = obsplots[s][1].plot(obsplots[s][0][1][0]+obsplots[s][-1][0], obsplots[s][0][1][1]/obsplots[s][-1][1], 'k--')
+				#print obsplots[s][2][0], obsplots[s][2][1]
+				obsplots[s][0][0].append(obsline[0])
+				#print obsplots[s][0][0]
 
 os.system("rm -r session*")
+exit()
