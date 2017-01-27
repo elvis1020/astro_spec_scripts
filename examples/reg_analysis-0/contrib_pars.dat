@@ -1,0 +1,6 @@
+element  lambda    range atomic data
+Na       4982.80   2.0   atoms.dat
+name      teff   logg  met    vt    fwhm  observed      lam.corr  flx.corr  mark  abonds
+sun       5777.  4.44  +0.00  1.00  0.13  solar580.dat  -0.02     1.00      F     sun.ab
+arcturus  4282.  1.66  -0.54  1.65  0.15  obsarc.dat    +0.08     2.24      T     arc.ab
+muleo     4540.  2.20  +0.20  1.20  0.14  obsmul.dat    -0.24     1.01      F     mul.ab
