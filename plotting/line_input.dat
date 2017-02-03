@@ -1,4 +1,4 @@
-Observed	Model				Species Lambda 		Wl-corr Flux-corr.	Range
-b-107_r.dat	@b107conv10			uhh	6645.064 	0	1.		1
-b-107_r.dat	@b107conv10			uhh	6613.733	0	1.17		1.5
-b-107_r.dat	@b107conv10			uhh	6435.004	0	1.155		1
+Observed		Model								Species Lambda 		Wl-corr Flux-corr.	Range	OBstyle	Colormap	Width	Alpha
+sun/Juno.fits	@sun/multi-session-vald/cv_012.spl	BaII	6141.71	 	-0.00	1.000		2.0		k-      copper		1.0		0.8
+sun/Juno.fits	@sun/multi-session-vald/cv_012.spl	CaI		5601.37	 	-0.00	0.995		4.0		k.      jet 		4.0		0.4
+sun/Juno.fits	@sun/multi-session-vald/cv_012.spl	CaI		5866.56	 	-0.00	1.005		3.0		k--     winter 	    0.5     1.0
